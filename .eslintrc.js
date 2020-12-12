@@ -16,5 +16,10 @@ module.exports = {
     ecmaVersion: 2018,
   },
   rules: {
+    "linebreak-style": ["error", "windows"],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-restricted-globals": ["error", "event"],
+    "no-restricted-syntax": ["error", "WithStatement", "BinaryExpression[operator='in']"],
+    "no-bitwise": ["error", { "allow": ["^"]}]
   },
 };

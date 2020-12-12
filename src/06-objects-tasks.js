@@ -20,8 +20,14 @@
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-function Rectangle(/* width, height */) {
-  throw new Error('Not implemented');
+function Rectangle(width, height) {
+  return {
+    width,
+    height,
+    getArea() {
+      return this.width * this.height;
+    },
+  };
 }
 
 
@@ -35,8 +41,8 @@ function Rectangle(/* width, height */) {
  *    [1,2,3]   =>  '[1,2,3]'
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
-function getJSON(/* obj */) {
-  throw new Error('Not implemented');
+function getJSON(obj) {
+  return JSON.stringify(obj);
 }
 
 
@@ -51,8 +57,10 @@ function getJSON(/* obj */) {
  *    const r = fromJSON(Circle.prototype, '{"radius":10}');
  *
  */
-function fromJSON(/* proto, json */) {
-  throw new Error('Not implemented');
+function fromJSON(proto, json) {
+  const obj = JSON.parse(json);
+  Object.setPrototypeOf(obj, proto);
+  return obj;
 }
 
 
@@ -111,32 +119,94 @@ function fromJSON(/* proto, json */) {
  */
 
 const cssSelectorBuilder = {
-  element(/* value */) {
-    throw new Error('Not implemented');
+  result: '',
+  element(value) {
+    this.check(1);
+    if (this.isElement) throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+    this.result += value;
+    const all = this.result;
+    this.result = '';
+    return Object.setPrototypeOf({
+      result: all,
+      isElement: 1,
+      index: 1,
+    }, this);
   },
 
-  id(/* value */) {
-    throw new Error('Not implemented');
+  id(value) {
+    this.check(2);
+    if (this.isId) throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+    this.result += `#${value}`;
+    const all = this.result;
+    this.result = '';
+    return Object.setPrototypeOf({
+      result: all,
+      isId: 1,
+      index: 2,
+    }, this);
   },
 
-  class(/* value */) {
-    throw new Error('Not implemented');
+  class(value) {
+    this.check(3);
+    this.result += `.${value}`;
+    const all = this.result;
+    this.result = '';
+    return Object.setPrototypeOf({
+      result: all,
+      index: 3,
+    }, this);
   },
 
-  attr(/* value */) {
-    throw new Error('Not implemented');
+  attr(value) {
+    this.check(4);
+    this.result += `[${value}]`;
+    const all = this.result;
+    this.result = '';
+    return Object.setPrototypeOf({
+      result: all,
+      index: 4,
+    }, this);
   },
 
-  pseudoClass(/* value */) {
-    throw new Error('Not implemented');
+  pseudoClass(value) {
+    this.check(5);
+    this.result += `:${value}`;
+    const all = this.result;
+    this.result = '';
+    return Object.setPrototypeOf({
+      result: all,
+      index: 5,
+    }, this);
   },
 
-  pseudoElement(/* value */) {
-    throw new Error('Not implemented');
+  pseudoElement(value) {
+    this.check(6);
+    if (this.isPseudo) throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+    this.result += `::${value}`;
+    const all = this.result;
+    this.result = '';
+    return Object.setPrototypeOf({
+      result: all,
+      isPseudo: 1,
+      index: 6,
+    }, this);
   },
 
-  combine(/* selector1, combinator, selector2 */) {
-    throw new Error('Not implemented');
+  combine(selector1, combinator, selector2) {
+    this.result = `${selector1.stringify()} ${combinator} ${selector2.stringify()}`;
+    return this;
+  },
+  stringify() {
+    const copy = this.result;
+    this.result = '';
+    return copy;
+  },
+  check(count) {
+    if (this.index > count) {
+      throw new Error(
+        'Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element',
+      );
+    }
   },
 };
 
