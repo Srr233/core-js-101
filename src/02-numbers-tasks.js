@@ -211,7 +211,7 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-  for (let i = 2; i < n; i++) { if (n % i === 0) return false; }
+  for (let i = 2; i < n; i += 1) { if (n % i === 0) return false; }
   return n > 1;
 }
 
@@ -232,7 +232,7 @@ function isPrime(n) {
  */
 function toNumber(value, def) {
   const num = +value;
-  const nan = isNaN(num);
+  const nan = !num;
   let res;
   if (nan) {
     res = def;
