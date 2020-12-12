@@ -118,7 +118,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  */
 function repeatString(value, count) {
   let result = '';
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < count; i += 1) {
     result += value;
   }
   return result;
@@ -222,24 +222,24 @@ function extractEmails(str) {
  */
 function getRectangleString(width, height) {
   let result = '';
-  for (let i = 0; i < height; i++) {
+  for (let i = 0; i < height; i += 1) {
     if (i === 0) {
       let front = '┌';
-      for (let a = 2; a < width; a++) {
+      for (let a = 2; a < width; a += 1) {
         front += '─';
       }
       front += '┐\n';
       result += front;
     } else if (i + 1 === height) {
       let front = '└';
-      for (let b = 2; b < width; b++) {
+      for (let b = 2; b < width; b += 1) {
         front += '─';
       }
       front += '┘\n';
       result += front;
     } else {
       let front = '│';
-      for (let c = 2; c < width; c++) {
+      for (let c = 2; c < width; c += 1) {
         front += ' ';
       }
       front += '│\n';

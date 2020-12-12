@@ -55,7 +55,7 @@ function getFizzBuzz(num) {
  */
 function getFactorial(n) {
   let res = 1;
-  for (let i = 1; i <= n; i++) {
+  for (let i = 1; i <= n; i += 1) {
     res *= i;
   }
   return res;
@@ -76,7 +76,7 @@ function getFactorial(n) {
  */
 function getSumBetweenNumbers(n1, n2) {
   let res = 0;
-  for (let i = n1; i <= n2; i++) {
+  for (let i = n1; i <= n2; i += 1) {
     res += i;
   }
   return res;
@@ -302,7 +302,7 @@ function isCreditCardNumber(ccn) {
   let sum = 0;
   const ccnCopy = ccn.toString();
 
-  for (let i = 0; i < ccnCopy.length; i++) {
+  for (let i = 0; i < ccnCopy.length; i += 1) {
     let cardNum = +ccnCopy[i];
 
     if ((ccnCopy.length - i) % 2 === 0) {
@@ -369,7 +369,7 @@ function isBracketsBalanced(input) {
   const brackets = '[]{}()<>';
   const stack = [];
 
-  for (let i = 0; i < input.length; i++) {
+  for (let i = 0; i < input.length; i += 1) {
     const bracketsIndex = brackets.indexOf(input[i]);
 
     if (bracketsIndex % 2 === 0) {
@@ -435,16 +435,16 @@ function getCommonDirectoryPath(pathes) {
   const copy = pathes.slice();
   if (copy.every((e) => e[0] === '/')) {
     let maxLength = 0;
-    for (let i = 0; i < copy.length; i++) {
+    for (let i = 0; i < copy.length; i += 1) {
       copy[i] = copy[i].split('/');
       if (maxLength < copy[i].length) {
         maxLength = copy[i].length;
       }
     }
     let res = '';
-    for (let i = 0; i < maxLength; i++) {
+    for (let i = 0; i < maxLength; i += 1) {
       const template = [];
-      for (let j = 0; j < copy.length; j++) {
+      for (let j = 0; j < copy.length; j += 1) {
         template.push(copy[j][i]);
       }
       const template2 = template[0];
@@ -483,11 +483,11 @@ function getCommonDirectoryPath(pathes) {
  */
 function getMatrixProduct(m1, m2) {
   const res = [];
-  for (let i = 0; i < m1.length; i++) {
+  for (let i = 0; i < m1.length; i += 1) {
     res.push([]);
-    for (let j = 0; j < m1[i].length; j++) {
+    for (let j = 0; j < m1[i].length; j += 1) {
       let n = 0;
-      for (let k = 0; k < m1[i].length; k++) {
+      for (let k = 0; k < m1[i].length; k += 1) {
         n += m1[i][k] * m2[k][j];
       }
       res[i].push(n);
@@ -530,21 +530,21 @@ function getMatrixProduct(m1, m2) {
 function evaluateTicTacToePosition(position) {
   let res;
 
-  for (let j = 0; j < 3; j++) {
+  for (let j = 0; j < 3; j += 1) {
     if (position[j].length < 3) {
       position[j].push(undefined);
     }
   }
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 3; i += 1) {
     res = position[i].every((e) => e === '0');
     if (res) return '0';
     res = position[i].every((e) => e === 'X');
     if (res) return 'X';
   }
 
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 3; i += 1) {
     const columnArr = [];
-    for (let j = 0; j < 3; j++) {
+    for (let j = 0; j < 3; j += 1) {
       columnArr.push(position[j][i]);
     }
     res = columnArr.every((e) => e === '0');
